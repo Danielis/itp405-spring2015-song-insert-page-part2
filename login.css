@@ -1,6 +1,15 @@
+html{
+	height: 100%;
+	background-image: url('http://fc07.deviantart.net/fs70/f/2013/174/3/e/recycled_texture_background_by_sandeep_m-d6aeau9.jpg');
+}
 body{
-	background-color: #262626;
+	background-color: rgba(0,0,0,.5);
 	color: white;
+	width: 1000px;
+	height: 100%;
+	margin: auto auto;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 form select{
 	color: black;

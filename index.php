@@ -1,32 +1,28 @@
 <?php
-	require_once __DIR__ . '/Auth.php';
 	require_once __DIR__ . '/classes.php';
+	require_once __DIR__ . '/vendor/autoload.php';
 
-	$auth = new Auth();
-	if (!$auth->check()) {
-		header('Location: login.php');
+	$artistQuery = new Itp\Music\ArtistQuery();
+	$genreQuery = new Itp\Music\GenreQuery();
+
+	$artists = $artistQuery->getAll();
+	$genres = $genreQuery->getAll();
+
+	use Symfony\Component\HttpFoundation\Session\Session;
+	$session = new \Symfony\Component\HttpFoundation\Session\Session();
+	// $session->start();
+
+	if (isset($_POST['songSubmit'])) {
+		// send email
+		$song = new Itp\Music\Song();
+		$submittedTitle = $_POST['titleStr'];
+		$submittedArtist = $_POST['artist'];
+		$session->getFlashBag()->add('contact-success', 'Song Sumbitted');
+		$session->getFlashBag()->add('contact-success', 'Thank you!');
+		header('Location: /');
+		exit;
 	}
 
-	$artistQuery = new ArtistQuery();
-	$genreQuery = new GenreQuery();
-
-	$artistQuery->getAll();
-	$genreQuery->getAll();
-
-	$artists = $_SESSION['artists'];
-	$genres = $_SESSION['genres'];
-
-	if(isset($_POST['songSubmit'])){
-		$song = new Song();
-
-		$song->setTitle($_POST['titleStr']);
-		$song->setArtistId($_POST['artist']);
-		$song->setGenreId($_POST['genre']);
-		$song->setPrice($_POST['price']);
-
-		$song->save();
-		session_destroy();
-	}
 ?>
 
 <!DOCTYPE html>
@@ -39,14 +35,12 @@
 <body>
 
 <div class="container">
-	<a href="logout.php">Logout</a>
-	<h1>Welcome <?php echo $auth->getUser()->username ?>!</h1>
-	<p><?php echo $auth->getUser()->email ?></p>
+	<h2> Welcome! Let's add a few songs</h2>
 </div>
 
 <div>
 	<h4>Insert a song:</h4>
-	<form method="post">
+	<form method="post" >
 		<div class="form-group">
 			<label for="title">Title</label>
 			<input type="text" name="titleStr" class="form-control" id="title" value="In the End">
@@ -71,14 +65,8 @@
 		<input type="submit" name="songSubmit" class="btn btn-default" value="Submit">
 	</form>
 </div>
-<?php if($song){?>
-<div>
-	<p>The song <?php echo $song->getTitle() ?>
-   with an ID of <?php echo $song->getId() ?>
-   was inserted successfully!</p>
-
-</div>
-<?php }?>
-
+	<?php foreach ($session->getFlashBag()->get('contact-success') as $message) : ?>
+		<p><?php echo $message ?></p>
+	<?php endforeach; ?> 
 </body>
 </html>

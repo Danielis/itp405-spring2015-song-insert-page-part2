@@ -1,7 +1,10 @@
 <?php
+
+namespace Itp\Music;
+
 require_once __DIR__ . '/Database.php';
 
-	class ArtistQuery extends Database{
+	class ArtistQuery extends \Itp\Base\Database{
 		public function __construct(){
 			session_start();
 			parent::__construct();
@@ -13,17 +16,13 @@ require_once __DIR__ . '/Database.php';
 			$statement = static::$pdo->prepare($sql);
 			$statement->execute();
 
-			$artists = $statement->fetchAll(PDO::FETCH_OBJ);
+			$artists = $statement->fetchAll(\PDO::FETCH_OBJ);
 
-			if($artists){
-				$_SESSION['artists'] = $artists;
-				return true;
-			}
-			return false;
+			return $artists;
 		}
 	}
 //--------------------------------------------------------------------
-	class GenreQuery extends Database{
+	class GenreQuery extends \Itp\Base\Database{
 		public function __construct(){
 			session_start();
 			parent::__construct();
@@ -36,17 +35,13 @@ require_once __DIR__ . '/Database.php';
 			$statement = static::$pdo->prepare($sql);
 			$statement->execute();
 
-			$genres = $statement->fetchAll(PDO::FETCH_OBJ);
+			$genres = $statement->fetchAll(\PDO::FETCH_OBJ);
 
-			if($genres){
-				$_SESSION['genres'] = $genres;
-				return true;
-			}
-			return false;
+			return $genres;
 		}
 	}
 //--------------------------------------------------------------------
-	class Song extends Database{
+	class Song extends \Itp\Base\Database{
 		private $title ="";
 		private $artistId = 0;
 		private $genreId = 0;
@@ -95,7 +90,6 @@ require_once __DIR__ . '/Database.php';
 			$statement->bindParam(':genreId', $this->genreId);
 			$statement->bindParam(':price', $this->price);
 			$statement->execute();
-
 
 		}
 		public function getTitle(){

@@ -1,5 +1,7 @@
 <?php 
 
+namespace Itp\Base;
+
 class Database {
 	private $host = 'itp460.usc.edu';
 	private $dbname = 'music';
@@ -10,7 +12,7 @@ class Database {
 	public function __construct(){
 		if(!static::$pdo){
 			$connectionString = "mysql:host=". $this->host . ";dbname=" . $this->dbname;
-			static::$pdo = new PDO($connectionString,$this->user, $this->password);
+			static::$pdo = new \PDO($connectionString,$this->user, $this->password);
 		}
 
 	}
