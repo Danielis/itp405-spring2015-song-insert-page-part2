@@ -1,9 +1,12 @@
 html{
 	height: 100%;
-	background-image: url('http://fc07.deviantart.net/fs70/f/2013/174/3/e/recycled_texture_background_by_sandeep_m-d6aeau9.jpg');
+	/*background-image: url('http://fc07.deviantart.net/fs70/f/2013/174/3/e/recycled_texture_background_by_sandeep_m-d6aeau9.jpg');*/
+	background-image: url('http://www.hdesktops.com/wp-content/uploads/2013/12/abstract-wallpaper-photos-of-music-stars-13.jpg');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
 }
 body{
-	background-color: rgba(0,0,0,.5);
+	background-color: rgba(200,200,200,.1);
 	color: white;
 	width: 1000px;
 	height: 100%;
@@ -13,4 +16,8 @@ body{
 }
 form select{
 	color: black;
+}
+
+.submittedMessage{
+	background-color: rgba(0,200,0,.3);
 }
